@@ -8,7 +8,7 @@ export default function createIteratorObject(report) {
         const departmentEmployees = employees[index];
         const employee = departmentEmployees.shift();
         if (!departmentEmployees.length) {
-          index++;
+          index += 1;
         }
         return { value: employee, done: false };
       }
