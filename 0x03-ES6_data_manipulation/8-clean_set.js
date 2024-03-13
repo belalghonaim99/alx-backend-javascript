@@ -1,10 +1,8 @@
-const cleanSet = (set, startString) => {
-  const result = [];
-  set.forEach((value) => {
-    if (value && value.startsWith(startString)) {
-      result.push(value.slice(startString.length));
-    }
-  });
-  return result.join('-');
-};
+function cleanSet(set, startString) {
+  return [...set]
+    .filter((value) => value.startsWith(startString))
+    .map((value) => value.slice(startString.length))
+    .join('-');
+}
+
 export default cleanSet;
