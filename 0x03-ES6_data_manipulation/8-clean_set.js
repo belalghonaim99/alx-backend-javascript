@@ -1,10 +1,20 @@
-const cleanSet = (set, startstring) => {
-  const newSet = new Set();
-  set.forEach((value) => {
-    if (value && value.startsWith(startstring)) {
-      newSet.add(value);
+export default function cleanSet(set, startString) {
+  if (
+    !set && !startString && !(set instanceof Set) && typeof startString !== 'string'
+  ) {
+    return '';
+  }
+
+  const parts = [];
+
+  for (const value of set.values()) {
+    if (typeof value === 'string' && value.startsWith(startString)) {
+      const valueSubStr = value.substring(startString.length);
+
+      if (valueSubStr && valueSubStr !== value) {
+        parts.push(valueSubStr);
+      }
     }
-  });
-  return newSet;
-};
-export default cleanSet;
+  }
+  return parts.join('-');
+}
