@@ -7,15 +7,27 @@ const countStudents = (data) => {
   if (!fs.statSync(data).isFile()) {
     throw new Error('Cannot load the database');
   }
+  const files = fs
+    .readFileSync(data, 'utf-8')
+    .toString('utf-8')
+    .trim()
+    .split('\n')
+    .filter((line) => line.length > 0); // filter out empty lines
 
-  fs.readFileSync(data, 'utf-8').trim().replace(/\r\n/g, '\n').split('\n');
-  const studentData = {};
+  const students = files.slice(1); // remove header line
+  const fields = {};
 
-  // Rest of the code remains unchanged
+  students.forEach((student) => {
+    const field = student.split(',')[3]; // assuming field is the 4th column
+    if (!fields[field]) {
+      fields[field] = [];
+    }
+    fields[field].push(student.split(',')[0]); // assuming name is the 1st column
+  });
 
-  for (const [field, students] of Object.entries(studentData)) {
-    const studentNames = students.map((student) => student.firstname).join(', ');
-    console.log(`Number of students in ${field}: ${students.length}. List: ${studentNames}`);
+  console.log(`Number of students: ${students.length}`);
+  for (const field in fields) {
+    console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
   }
 };
 
