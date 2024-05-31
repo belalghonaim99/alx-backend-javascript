@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 const countStudents = (data) => {
   if (!fs.existsSync(data)) {
@@ -31,4 +31,4 @@ const countStudents = (data) => {
   }
 };
 
-module.exports = countStudents;
+export default countStudents;
