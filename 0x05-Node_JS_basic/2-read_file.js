@@ -32,3 +32,4 @@ const countStudents = (data) => {
 };
 
 module.exports = countStudents;
+
