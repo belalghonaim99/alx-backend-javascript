@@ -69,6 +69,7 @@ const SERVER_ROUTE_HANDLERS = [
       res.setHeader('Content-Length', responseText.length);
       res.statusCode = 200;
       res.write(Buffer.from(responseText));
+      res.end();
     },
   },
   {
@@ -84,6 +85,7 @@ const SERVER_ROUTE_HANDLERS = [
           resp.setHeader('Content-Length', responseText.length);
           resp.statusCode = 200;
           resp.write(Buffer.from(responseText));
+          resp.end();
         })
         .catch((err) => {
           responseParts.push(err instanceof Error ? err.message : err.toString());
@@ -92,6 +94,7 @@ const SERVER_ROUTE_HANDLERS = [
           resp.setHeader('Content-Length', responseText.length);
           resp.statusCode = 200;
           resp.write(Buffer.from(responseText));
+          resp.end();
         });
     },
   },
