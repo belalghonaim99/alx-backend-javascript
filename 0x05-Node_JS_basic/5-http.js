@@ -9,36 +9,36 @@ const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 
 const countStudents = (dp) => new Promise((resolve, reject) => {
     if (!dp) {
-    reject(new Error('Cannot load the database'));
+        reject(new Error('Cannot load the database'));
     }
     if (dp) {
-    fs.readFile(dp, (error, data) => {
-        if (error) {
-        reject(new Error('Cannot load the database'));
+        fs.readFile(dp, (error, data) => {
+            if (error) {
+                reject(new Error('Cannot load the database'));
         }
         if (data) {
-        const rp = [];
-        const flines = data.toString('utf-8').trim().split('\n');
-        const sg = {};
-        const dbNames = flines[0].split(',');
-        const studentNames = dbNames.slice(
-            0,
-            dbNames.length - 1,
+            const rp = [];
+            const flines = data.toString('utf-8').trim().split('\n');
+            const sg = {};
+            const dbNames = flines[0].split(',');
+            const studentNames = dbNames.slice(
+                0,
+                dbNames.length - 1,
         );
 
         for (const line of flines.slice(1)) {
             const studentsRecord = line.split(',');
             const studentValues = studentsRecord.slice(
-            0,
-            studentsRecord.length - 1,
+                0,
+                studentsRecord.length - 1,
             );
             const studentField = studentsRecord[studentsRecord.length - 1];
             if (!Object.keys(sg).includes(studentField)) {
-            sg[studentField] = [];
+                sg[studentField] = [];
             }
             const studentEntries = studentNames.map((propName, idx) => [
-            propName,
-            studentValues[idx],
+                propName,
+                studentValues[idx],
             ]);
             sg[studentField].push(Object.fromEntries(studentEntries));
         }
@@ -49,9 +49,9 @@ const countStudents = (dp) => new Promise((resolve, reject) => {
         rp.push(`Number of students: ${totalOfStudents}`);
         for (const [field, group] of Object.entries(sg)) {
             rp.push([
-            `Number of students in ${field}: ${group.length}.`,
-            'List:',
-            group.map((student) => student.firstname).join(', '),
+                `Number of students in ${field}: ${group.length}.`,
+                'List:',
+                group.map((student) => student.firstname).join(', '),
             ].join(' '));
         }
         resolve(rp.join('\n'));
@@ -62,8 +62,8 @@ const countStudents = (dp) => new Promise((resolve, reject) => {
 
 const SERVER_ROUTE_HANDLERS = [
     {
-    route: '/',
-    handler(_, res) {
+        route: '/',
+        handler(_, res) {
         const responseText = 'Hello Holberton School!';
 
         res.setHeader('Content-Type', 'text/plain');
@@ -73,8 +73,8 @@ const SERVER_ROUTE_HANDLERS = [
     },
     },
     {
-    route: '/students',
-    handler(_, resposne) {
+        route: '/students',
+        handler(_, resposne) {
         const responseParts = ['This is the list of our students'];
 
         countStudents(DB_FILE)
