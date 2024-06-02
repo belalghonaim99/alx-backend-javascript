@@ -6,7 +6,7 @@ const PORT = 1245;
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 
 
-const countStudents = (`dataPath`) => new Promise((resolve, reject) => {
+const countStudents = (dataPath) => new Promise((resolve, reject) => {
   if (!dataPath) {
     reject(new Error('Cannot load the database'));
   }
