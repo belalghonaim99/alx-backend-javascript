@@ -39,11 +39,8 @@ const countStudents = (dp) => new Promise((resolve, reject) => {
                 const totalOfStudents = Object.values(sg).reduce((pre, cur) => (pre || []).length + cur.length);
                 rp.push(`Number of students: ${totalOfStudents}`);
                 for (const [field, group] of Object.entries(sg)) {
-                    rp.push([
-                        `Number of students in ${field}: ${group.length}.`,
-                        'List:',
-                        group.map((student) => student.firstname).join(', '),
-                    ].join(' '));
+                    const studentList = group.map((student) => student.firstname).join(', ');
+                    rp.push(`Number of students in ${field}: ${group.length}. List: ${studentList}`);
                 }
                 resolve(rp.join('\n'));
             }
@@ -61,7 +58,7 @@ const SERVER_ROUTE_HANDLERS = [
             res.setHeader('Content-Length', responseText.length);
             res.statusCode = 200;
             res.write(Buffer.from(responseText));
-            res.end(); // Add end() to indicate end of response
+            res.end();
         },
     },
     {
@@ -77,7 +74,7 @@ const SERVER_ROUTE_HANDLERS = [
                     response.setHeader('Content-Length', responseText.length);
                     response.statusCode = 200;
                     response.write(Buffer.from(responseText));
-                    response.end(); // Add end() to indicate end of response
+                    response.end();
                 })
                 .catch((err) => {
                     responseParts.push(err instanceof Error ? err.message : err.toString());
@@ -86,7 +83,7 @@ const SERVER_ROUTE_HANDLERS = [
                     response.setHeader('Content-Length', responseText.length);
                     response.statusCode = 200;
                     response.write(Buffer.from(responseText));
-                    response.end(); // Add end() to indicate end of response
+                    response.end();
                 });
         },
     },
