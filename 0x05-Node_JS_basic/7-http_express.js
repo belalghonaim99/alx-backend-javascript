@@ -5,7 +5,6 @@ const app = express();
 const PORT = 1245;
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 
-
 const countStudents = (dataPath) => new Promise((resolve, reject) => {
   if (!dataPath) {
     reject(new Error('Cannot load the database'));
@@ -63,25 +62,25 @@ app.get('/', (_, response) => {
   response.send('Hello Holberton School!');
 });
 
-app.get('/students', (_, responses) => {
+app.get('/students', (_, response) => {
   const responseParts = ['This is the list of our students'];
 
   countStudents(DB_FILE)
     .then((report) => {
       responseParts.push(report);
       const responseText = responseParts.join('\n');
-      responses.setHeader('Content-Type', 'text/plain');
-      responses.setHeader('Content-Length', responseText.length);
-      responses.statusCode = 200;
-      responses.write(Buffer.from(responseText));
+      response.setHeader('Content-Type', 'text/plain');
+      response.setHeader('Content-Length', responseText.length);
+      response.statusCode = 200;
+      response.write(Buffer.from(responseText));
     })
     .catch((err) => {
       responseParts.push(err instanceof Error ? err.message : err.toString());
       const responseText = responseParts.join('\n');
-      responses.setHeader('Content-Type', 'text/plain');
-      responses.setHeader('Content-Length', responseText.length);
-      responses.statusCode = 200;
-      responses.write(Buffer.from(responseText));
+      response.setHeader('Content-Type', 'text/plain');
+      response.setHeader('Content-Length', responseText.length);
+      response.statusCode = 200;
+      response.write(Buffer.from(responseText));
     });
 });
 
