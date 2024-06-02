@@ -12,17 +12,17 @@ const countStudents = (data) => {
     .toString('utf-8')
     .trim()
     .split('\n')
-    .filter((line) => line.length > 0); // filter out empty lines
+    .filter((line) => line.length > 0);
 
-  const students = files.slice(1); // remove header line
+  const students = files.slice(1);
   const fields = {};
 
   students.forEach((student) => {
-    const field = student.split(',')[3]; // assuming field is the 4th column
+    const field = student.split(',')[3];
     if (!fields[field]) {
       fields[field] = [];
     }
-    fields[field].push(student.split(',')[0]); // assuming name is the 1st column
+    fields[field].push(student.split(',')[0]);
   });
 
   console.log(`Number of students: ${students.length}`);
