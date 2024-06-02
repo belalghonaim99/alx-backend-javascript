@@ -61,6 +61,7 @@ const SERVER_ROUTE_HANDLERS = [
             res.setHeader('Content-Length', responseText.length);
             res.statusCode = 200;
             res.write(Buffer.from(responseText));
+            res.end(); // Add end() to indicate end of response
         },
     },
     {
@@ -76,6 +77,7 @@ const SERVER_ROUTE_HANDLERS = [
                     response.setHeader('Content-Length', responseText.length);
                     response.statusCode = 200;
                     response.write(Buffer.from(responseText));
+                    response.end(); // Add end() to indicate end of response
                 })
                 .catch((err) => {
                     responseParts.push(err instanceof Error ? err.message : err.toString());
@@ -84,6 +86,7 @@ const SERVER_ROUTE_HANDLERS = [
                     response.setHeader('Content-Length', responseText.length);
                     response.statusCode = 200;
                     response.write(Buffer.from(responseText));
+                    response.end(); // Add end() to indicate end of response
                 });
         },
     },
